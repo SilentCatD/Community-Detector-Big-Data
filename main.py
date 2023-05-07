@@ -53,4 +53,6 @@ if __name__ == '__main__':
     # detection networkx
     community_detector_lib = NetworkxCommunityDetector(networkx_graph)
     community_detector_lib.detect(community_detection_lib_out_file)
+
+    # benchmark communities
     CommunityDetector.benchmark_communities(community_detection_out_file, community_detection_lib_out_file)

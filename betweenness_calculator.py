@@ -41,7 +41,9 @@ class BetweennessCalculator:
             value_b = float(split_b[-1].strip())
             accumulate += pow(value_a - value_b, 2)
         accumulate /= len(betweenness_a)
+        print('============================================')
         print(f'betweenness mse: {accumulate}')
+        print('============================================')
         return accumulate
 
 

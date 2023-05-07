@@ -33,7 +33,9 @@ class CommunityDetector:
             community_b = f.read()
 
         assert community_a == community_b
+        print('============================================')
         print('detected communities identical')
+        print('============================================')
 
 
 class SelfImplementedCommunityDetector(CommunityDetector):
@@ -44,21 +46,32 @@ class SelfImplementedCommunityDetector(CommunityDetector):
         graph_clone = self.graph.copy()
         max_modularity = -1
         max_modularity_communities = None
+        print('============================================')
+        print('detecting communities...')
         while True:
             if graph_clone.count_edges() == 0:
                 break
-            edge_betweenness_calculator = SelfImplementedBetweennessCalculator(graph_clone)
-            edge_betweenness = edge_betweenness_calculator.calculate_betweenness()
-            highest_betweenness_edge = edge_betweenness[0][0]
-            graph_clone.remove_edge(highest_betweenness_edge[0], highest_betweenness_edge[1])
+            SelfImplementedCommunityDetector.__girvan_newman(graph_clone)
             communities_modularity = self.__modularity(graph_clone.get_communities())
             if communities_modularity > max_modularity:
                 max_modularity = communities_modularity
                 max_modularity_communities = graph_clone.get_communities()
+        print('============================================')
 
         if max_modularity_communities is None:
             return []
         return max_modularity_communities
+
+    @staticmethod
+    def __girvan_newman(graph: Graph):
+        community_count = len(graph.get_communities())
+        while True:
+            if graph.count_edges() == 0 or len(graph.get_communities()) > community_count:
+                break
+            edge_betweenness_calculator = SelfImplementedBetweennessCalculator(graph)
+            edge_betweenness = edge_betweenness_calculator.calculate_betweenness()
+            highest_betweenness_edge = edge_betweenness[0][0]
+            graph.remove_edge(highest_betweenness_edge[0], highest_betweenness_edge[1])
 
     def __modularity(self, communities: list[tuple[str]]):
         accumulate = 0
@@ -83,6 +96,9 @@ class NetworkxCommunityDetector(CommunityDetector):
         comp = girvan_newman(graph_clone)
         max_modularity = - 1
         max_modularity_communities = None
+
+        print('============================================')
+        print('detecting communities...')
         while True:
             try:
                 communities = next(comp)
@@ -92,6 +108,7 @@ class NetworkxCommunityDetector(CommunityDetector):
             if communities_modularity > max_modularity:
                 max_modularity = communities_modularity
                 max_modularity_communities = communities
+        print('============================================')
         if max_modularity_communities is None:
             return []
         result = list(tuple(sorted(str(node) for node in c)) for c in
