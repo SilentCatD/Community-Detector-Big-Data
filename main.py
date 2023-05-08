@@ -34,11 +34,11 @@ if __name__ == '__main__':
 
     # betweenness self implemented
     implemented_betweenness_calculator = SelfImplementedBetweennessCalculator(implemented_graph)
-    implemented_edge_betweenness = implemented_betweenness_calculator.calculate_betweenness(betweenness_out_file)
+    implemented_betweenness_calculator.calculate_betweenness(betweenness_out_file)
 
     # betweenness lib
     lib_edge_betweenness_calculator = NetworkXBetweennessCalculator(networkx_graph)
-    edges_betweenness_lib = lib_edge_betweenness_calculator.calculate_betweenness(betweenness_lib_out_file)
+    lib_edge_betweenness_calculator.calculate_betweenness(betweenness_lib_out_file)
 
     # benchmark betweenness
     BetweennessCalculator.mse_benchmark_betweenness(betweenness_out_file, betweenness_lib_out_file)
