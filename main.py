@@ -4,7 +4,10 @@ from betweenness_calculator import BetweennessCalculator, NetworkXBetweennessCal
 from community_detector import CommunityDetector, NetworkxCommunityDetector, SelfImplementedCommunityDetector
 
 if __name__ == '__main__':
+    # ==================================================
+
     # set metadata
+
     threshold = 7
     data_file = 'data/ub_sample_data.csv'
 
@@ -25,6 +28,7 @@ if __name__ == '__main__':
     # ==================================================
 
     # betweenness calculation
+
     betweenness_out_file = 'output/edge_betweenness.txt'
     betweenness_lib_out_file = 'output/edge_betweenness_lib.txt'
 
@@ -56,3 +60,5 @@ if __name__ == '__main__':
 
     # benchmark communities
     CommunityDetector.benchmark_communities(community_detection_out_file, community_detection_lib_out_file)
+
+    # ==================================================

@@ -70,6 +70,7 @@ class NetworkXBetweennessCalculator(BetweennessCalculator):
         self.networkx_graph = networkx_graph
 
     def _calculate_betweenness(self) -> list[tuple[tuple[str], float]]:
+        # noinspection PyTypeChecker
         edges_betweenness_dict = edge_betweenness_centrality(self.networkx_graph, normalized=False)
         edges_betweenness_lib = list(edges_betweenness_dict.items())
         converted_betweenness: list[tuple[tuple[str], float]] = []
